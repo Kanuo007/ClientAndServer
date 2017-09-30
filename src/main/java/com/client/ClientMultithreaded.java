@@ -47,13 +47,13 @@ public class ClientMultithreaded {
 
         System.out.println("Thread Amount:" +  threads);
         System.out.println("Iteratoin Amount: " +  iterations);
-        System.out.println("Total run time (wall time) for all threads to complete: " + totalLatency);
+        System.out.println("Total run time (wall time) for all threads to complete: " + totalLatency + "ms");
         System.out.println("Total Number of requests sent: " + 2 * threads * iterations);
         System.out.println("Total Number of successful requests: " + totalSucessfulRequest);
-        System.out.println("Mean latencies of all requests: " + meanLatencies(latencies));
-        System.out.println("Median latencies of all requests: " + medianLatencies(latencies));
-        System.out.println("95th percentile latency: " + percentileLatencise(latencies,95));
-        System.out.println("99th percentile latency: " + percentileLatencise(latencies,99));
+        System.out.println("Mean latencies of all requests: " + meanLatencies(latencies) + "ms");
+        System.out.println("Median latencies of all requests: " + medianLatencies(latencies) + "ms");
+        System.out.println("95th percentile latency: " + percentileLatencise(latencies,95) + "ms");
+        System.out.println("99th percentile latency: " + percentileLatencise(latencies,99) + "ms");
         exit(1);
     }
 
