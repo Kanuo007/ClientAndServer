@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="DIS_HW3:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/DIS_HW3_war</output-path>
+    <root id="archive" name="DIS_HW3_war.war">
+      <element id="artifact" artifact-name="DIS_HW3:war exploded" />
+    </root>
+  </artifact>
+</component>
