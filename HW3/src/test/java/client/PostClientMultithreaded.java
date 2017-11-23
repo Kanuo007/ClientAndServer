@@ -69,11 +69,10 @@ public class PostClientMultithreaded {
         System.out.println("ClientSide POST Matrics");
         System.out.println("Thread Amount:" +  threads);
         String serverType = "Individual Server";
-        if (hostName != serve_1_hostName) {
-            serverType = "Three Servers";
+        if (hostName == loadBalancer_hostName) {
+            serverType = "Collective Server";
         }
         System.out.println("ServerType:" + serverType);
-        System.out.println("RequestType:" + requestType);
         System.out.println("Total run time (wall time) for all threads to complete: " + totalLatency + "ms");
         System.out.println("Total Number of requests sent: " + RFIDDataIn.size());
         long seconds = TimeUnit.MILLISECONDS.toSeconds(totalLatency);

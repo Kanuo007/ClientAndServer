@@ -18,14 +18,13 @@ public class TrackerToLoadLatencyDB extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            int size =  Listener.queue_latency.size() < 10000? Listener.queue_latency.size() : 10000;
+            int size =  Listener.QUEUE_PERFORMANCE.size() < 10000? Listener.QUEUE_PERFORMANCE.size() : 10000;
             if (size == 0) continue;
             try {
-                System.out.println(Listener.queue_latency.size());
+                System.out.println(Listener.QUEUE_PERFORMANCE.size());
                 latencyDao.multiInsert(size);
             } catch (SQLException e) {
                 e.printStackTrace();
-                Listener.error.incrementAndGet();
             }
         }
     }

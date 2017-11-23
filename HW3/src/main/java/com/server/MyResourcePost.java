@@ -1,6 +1,6 @@
 package com.server;
 
-import bsdsass2testdata.Latency;
+import bsdsass2testdata.Performance;
 import bsdsass2testdata.LatencyType;
 import bsdsass2testdata.RFIDLiftData;
 import listener.Listener;
@@ -24,23 +24,23 @@ public class MyResourcePost {
                                      @FormParam("time")int time)
     {
         Long reveiceRequestTime = System.currentTimeMillis();
-
+        int error = 0;
         RFIDLiftData each = new RFIDLiftData(resortID, dayNum, skierID, liftID, time);
-        Listener.queue_Total.add(each);
+        Listener.QUEUE_TOTAL.add(each);
 
         Long sendResponseTime = System.currentTimeMillis();
         Long request_latency = sendResponseTime - reveiceRequestTime;
-        Latency latency = new Latency(
+        Performance performance = new Performance(
                 Listener.hostName, dayNum,
                 LatencyType.ResponseTime,
                 "POST",
                 reveiceRequestTime,
-                request_latency);
+                request_latency,
+                error
+        );
         try {
-            Listener.queue_latency.put(latency);
-//        Listener.queue_latencies.put(latency.toString());
+            Listener.QUEUE_PERFORMANCE.put(performance);
         } catch(InterruptedException e){
-            Listener.error.incrementAndGet();
             e.printStackTrace();
         }
 

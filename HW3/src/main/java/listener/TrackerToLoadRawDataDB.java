@@ -18,14 +18,13 @@ public class TrackerToLoadRawDataDB extends Thread {
                 e.printStackTrace();
             }
 
-            int size =  Listener.queue_Total.size() < 10000? Listener.queue_Total.size() : 10000;
+            int size =  Listener.QUEUE_TOTAL.size() < 10000? Listener.QUEUE_TOTAL.size() : 10000;
             if (size == 0) continue;
             try {
-                System.out.println(Listener.queue_Total.size());
+                System.out.println(Listener.QUEUE_TOTAL.size());
                 liftDataDao.multiInsert(size);
             } catch (SQLException e) {
                 e.printStackTrace();
-                Listener.error.incrementAndGet();
             }
         }
     }

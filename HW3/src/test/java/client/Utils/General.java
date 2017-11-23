@@ -20,38 +20,43 @@ public class General{
     public static final String DAY_FIVE_FILE = "/Users/iris/Desktop/DistributedSystem/DIS_HW3/BSDSAssignment2Day5.ser";
     public static final String DAY_999_FILE = "/Users/iris/Desktop/DistributedSystem/DIS_HW3/BSDSAssignment2Day999.ser";
 
-    public static final String serve_1_hostName = "ec2-54-186-64-113.us-west-2.compute.amazonaws.com";
-    public static final String serve_2_hostName = "ec2-54-191-92-86.us-west-2.compute.amazonaws.com";
-    public static final String serve_3_hostName = "ec2-54-213-239-140.us-west-2.compute.amazonaws.com";
+    public static final String serve_1_hostName = "ec2-54-213-9-70.us-west-2.compute.amazonaws.com";
+    public static final String serve_2_hostName = "ec2-54-191-104-220.us-west-2.compute.amazonaws.com";
+    public static final String serve_3_hostName = "ec2-54-186-190-185.us-west-2.compute.amazonaws.com";
     public static final String loadBalancer_hostName = "disLB-48246579.us-west-2.elb.amazonaws.com";
-    public static final String aws_postEndPoint = "/DIS_HW3_war/rest/load";
-    public static final String aws_getEndPoint = "/DIS_HW3_war/rest/myvert";
+    private static final String aws_postEndPoint = "/DIS_HW3_war/rest/load";
+    private static final String aws_getEndPoint = "/DIS_HW3_war/rest/myvert";
 
-    public static final String local_hostName = "127.0.0.1";
-    public static final String local_DB_IP = "Wens-MacBook-Pro.local";
+    private static final String local_hostName = "127.0.0.1";
     public static final String local_postEndPoint = "/rest/load";
     public static final String local_getEndPoint = "/rest/myvert";
 
-    public static final String Query_DB_Time = "QueryDBTime";
+    public static final String local_DB_IP = "Wens-MacBook-Pro.local";
+    public static final String DB_Server1_IP = "ip-172-31-22-159";
+    public static final String DB_Server2_IP = "ip-172-31-26-76";
+    public static final String DB_Server3_IP = "ip-172-31-26-220";
+
+    private static final String Query_DB_Time = "QueryDBTime";
     public static final String Request_Response_Time = "ResponseTime";
-    public static final String GET_REQUEST = "GET";
+    private static final String GET_REQUEST = "GET";
     public static final String POST_REQUEST = "POST";
 
-    // config each time
-    public static final String hostName = loadBalancer_hostName;
     public static final String port = "8080";
     public static final String postEndPoint = aws_postEndPoint;
     public static final String getEndPoint = aws_getEndPoint;
+    private List<Long> threadlatencyList;
+    private List<Long>threadrequestBeginList;
+
+    // ******* config each time **********
+    public static final String hostName = loadBalancer_hostName;
     public static final int dayNum = 5;
     public static final String dayFile = DAY_FIVE_FILE;
-    public static final String requestType = GET_REQUEST;
-    public static final String latencyType = Query_DB_Time;
+    public static final String requestType = POST_REQUEST;
+    public static final String latencyType = Request_Response_Time;
     public static final int userAmount = 10000;
     public static final int GETTHREADS = 100;
     public static final int POSTTHREADS = 50;
 
-    public List<Long> threadlatencyList;
-    public List<Long>threadrequestBeginList;
 
     General() {
         this.threadlatencyList = new ArrayList<Long>();

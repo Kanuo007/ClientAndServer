@@ -30,15 +30,9 @@ public class GeneralDao {
                 "latencyType VARCHAR(255) NOT NULL, " +
                 "startTime LONG NOT NULL, " +
                 "latency LONG NOT NULL, " +
+                "errorAmount INT NOT NULL, " +
                 "INDEX(dayNum), " +
                 "CONSTRAINT pk_Latency_id PRIMARY KEY (id));";
-
-        String createErrorTable = "CREATE TABLE IF NOT EXISTS Error (" +
-                "id BIGINT NOT NULL AUTO_INCREMENT, " +
-                "error INT NOT NULL, " +
-                "CONSTRAINT pk_Error_id PRIMARY KEY (id));";
-
-        String insertInit = "INSERT INTO Error(error) VALUES(0);";
 
         String createLifeDataTable = "CREATE TABLE IF NOT EXISTS LiftData (" +
                 "id BIGINT NOT NULL AUTO_INCREMENT, " +
@@ -57,10 +51,6 @@ public class GeneralDao {
             preStmt = connection.prepareStatement(createLifeDataTable);
             preStmt.executeUpdate();
             preStmt = connection.prepareStatement(createLatencyData);
-            preStmt.executeUpdate();
-            preStmt = connection.prepareStatement(createErrorTable);
-            preStmt.executeUpdate();
-            preStmt = connection.prepareStatement(insertInit);
             preStmt.executeUpdate();
 
             return 200;

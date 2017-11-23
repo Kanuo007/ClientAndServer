@@ -1,6 +1,5 @@
 package dao;
 
-import listener.Listener;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.Connection;
@@ -31,7 +30,6 @@ public class ConnectionPoolManager {
 		try {
 			return source.getConnection();
 		} catch (SQLException e) {
-			Listener.error.incrementAndGet();
 			e.printStackTrace();
 		}
 		return null;

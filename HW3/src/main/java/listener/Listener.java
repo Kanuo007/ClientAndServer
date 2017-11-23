@@ -1,6 +1,6 @@
 package listener;
 
-import bsdsass2testdata.Latency;
+import bsdsass2testdata.Performance;
 import bsdsass2testdata.RFIDLiftData;
 import dao.GeneralDao;
 
@@ -11,16 +11,12 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.System.exit;
 
 public class Listener implements ServletContextListener {
-    public static final BlockingQueue<RFIDLiftData> queue_Total = new LinkedBlockingQueue<RFIDLiftData>();
-    public static final BlockingQueue<Latency> queue_latency = new LinkedBlockingQueue<Latency>();
-    public static final AtomicInteger error = new AtomicInteger(0);
-
-//    public static final BlockingQueue<String> queue_latencies = new LinkedBlockingQueue<String>();
+    public static final BlockingQueue<RFIDLiftData> QUEUE_TOTAL = new LinkedBlockingQueue<RFIDLiftData>();
+    public static final BlockingQueue<Performance> QUEUE_PERFORMANCE = new LinkedBlockingQueue<Performance>();
 
     public static String hostName = "";
 
@@ -63,7 +59,5 @@ public class Listener implements ServletContextListener {
             trackerToLoadLatencyDB.start();
         }
 
-        TrackerToLoadErrorTracker trackerToLoadToErrorTracker = new TrackerToLoadErrorTracker();
-        trackerToLoadToErrorTracker.start();
     }
 }

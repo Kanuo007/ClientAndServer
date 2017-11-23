@@ -25,11 +25,14 @@ public class LatencyDaoForTest {
     }
 
 
-    public synchronized List<Matrics> getLatencyByHostAndDayAndRequestTypeAndLatencyType(String hostName, int dayNum, String requestType, String LatencyType) throws SQLException {
+    public synchronized List<Matrics> getLatencyByHostAndDayAndRequestTypeAndLatencyType(
+            String hostName, int dayNum, String requestType, String LatencyType
+    ) throws SQLException {
         Connection connection = null;
         PreparedStatement getStmt = null;
         List<Matrics> list = new ArrayList<Matrics>();
-        String getStat = "SELECT startTime, latency FROM Latency WHERE hostName=? AND dayNum=? AND requestType=? AND latencyType=?;";
+        String getStat = "SELECT startTime, latency, errorAmount " +
+                "FROM Latency WHERE hostName=? AND dayNum=? AND requestType=? AND latencyType=?;";
 
         try {
             connection = this.connectionPoolManager.getConnection();
@@ -39,14 +42,13 @@ public class LatencyDaoForTest {
             getStmt.setString(3, requestType);
             getStmt.setString(4, LatencyType);
 
-            System.out.println(getStmt);
-
             ResultSet resultSet = getStmt.executeQuery();
 
             while (resultSet.next()) {
                 Long startTime = resultSet.getLong("startTime");
                 Long latency = resultSet.getLong("latency");
-                Matrics matrics = new Matrics(startTime, latency);
+                int errorAmount = resultSet.getInt("errorAmount");
+                Matrics matrics = new Matrics(startTime, latency, errorAmount);
                 list.add(matrics);
             }} catch (SQLException e) {
             e.printStackTrace();
@@ -65,7 +67,7 @@ public class LatencyDaoForTest {
         Connection connection = null;
         PreparedStatement getStmt = null;
         List<Matrics> list = new ArrayList<Matrics>();
-        String getStat = "SELECT startTime, latency FROM Latency WHERE dayNum=? AND requestType=? AND latencyType=?;";
+        String getStat = "SELECT startTime, latency, errorAmount FROM Latency WHERE dayNum=? AND requestType=? AND latencyType=?;";
 
         try {
             connection = this.connectionPoolManager.getConnection();
@@ -77,7 +79,8 @@ public class LatencyDaoForTest {
             while (resultSet.next()) {
                 Long startTime = resultSet.getLong("startTime");
                 Long latency = resultSet.getLong("latency");
-                Matrics matrics = new Matrics(startTime, latency);
+                int errorAmount = resultSet.getInt("errorAmount");
+                Matrics matrics = new Matrics(startTime, latency, errorAmount);
                 list.add(matrics);
             }} catch (SQLException e) {
             e.printStackTrace();

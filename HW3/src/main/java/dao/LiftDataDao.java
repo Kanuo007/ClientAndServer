@@ -1,6 +1,6 @@
 package dao;
 
-import bsdsass2testdata.Latency;
+import bsdsass2testdata.Performance;
 import bsdsass2testdata.LatencyType;
 import bsdsass2testdata.RFIDLiftData;
 import listener.Listener;
@@ -40,7 +40,7 @@ public class LiftDataDao {
       for (int i = 0; i < size; i++) {
           RFIDLiftData rfidLiftData = null;
           try{
-              rfidLiftData = Listener.queue_Total.take();
+              rfidLiftData = Listener.QUEUE_TOTAL.take();
               // for people will not insert two day data within oneday, queue will not take two days data within oneday
               dayNum = rfidLiftData.getDayNum();
           } catch(InterruptedException e) {
@@ -74,15 +74,16 @@ public class LiftDataDao {
 
       Long QueryResponseTime = System.currentTimeMillis();
       long query_latency = QueryResponseTime - QuerySendTime;
-      Latency latency= new Latency(
+      Performance performance = new Performance(
               Listener.hostName,
               dayNum,
               LatencyType.QueryDBTime,
               "POST",
               QuerySendTime,
-              query_latency);
+              query_latency,
+              0);
       try {
-          Listener.queue_latency.put(latency);
+          Listener.QUEUE_PERFORMANCE.put(performance);
       } catch (InterruptedException e) {
           e.printStackTrace();
       }
@@ -144,15 +145,16 @@ public class LiftDataDao {
 
       Long QueryResponseTime = System.currentTimeMillis();
       long query_latency = QueryResponseTime - QuerySendTime;
-      Latency latency= new Latency(
+      Performance performance = new Performance(
               Listener.hostName,
               dayNum,
               LatencyType.QueryDBTime,
               "GET",
               QuerySendTime,
-              query_latency);
+              query_latency,
+              0);
       try {
-          Listener.queue_latency.put(latency);
+          Listener.QUEUE_PERFORMANCE.put(performance);
       } catch (InterruptedException e) {
           e.printStackTrace();
       }

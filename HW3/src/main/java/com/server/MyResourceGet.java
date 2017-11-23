@@ -1,6 +1,6 @@
 package com.server;
 
-import bsdsass2testdata.Latency;
+import bsdsass2testdata.Performance;
 import bsdsass2testdata.LatencyType;
 import dao.LiftDataDao;
 import listener.Listener;
@@ -22,12 +22,13 @@ public class MyResourceGet {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public synchronized String getMyvert(@PathParam("skierID") String skierID, @PathParam("dayNum")int dayNum) {
+        int error = 0;
         Long reveiceRequestTime = System.currentTimeMillis();
         List<Integer> list = new ArrayList<Integer>();
         try {
             list = liftDataDao.getLiftDataBySkierIdAndDayNum(skierID, dayNum);
         } catch (SQLException e) {
-            Listener.error.incrementAndGet();
+            error ++;
             e.printStackTrace();
         }
         int total_vertical = 0;
@@ -46,19 +47,19 @@ public class MyResourceGet {
 
         Long sendResponseTime = System.currentTimeMillis();
         Long request_latency = sendResponseTime - reveiceRequestTime;
-        Latency latency = new Latency(
+        Performance performance = new Performance(
                 Listener.hostName, dayNum,
                 LatencyType.ResponseTime,
                 "GET",
                 reveiceRequestTime,
-                request_latency);
+                request_latency,
+                error);
         try {
-            Listener.queue_latency.put(latency);
+            Listener.QUEUE_PERFORMANCE.put(performance);
         } catch(InterruptedException e) {
-            Listener.error.incrementAndGet();
             e.printStackTrace();
+            return res;
         }
-//        Listener.queue_latencies.put(latency.toString());
         return res;
     }
 
